@@ -5,6 +5,8 @@
 
 package ch.fhnw.acrm.config;
 
+import ch.fhnw.acrm.business.service.AgentService;
+import ch.fhnw.acrm.data.domain.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -30,6 +32,8 @@ import onl.mrtn.security.web.TokenLogoutHandler;
 @EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private AgentService agentService;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -62,6 +66,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        Agent sysAdmin = new Agent();
+        sysAdmin.setEmail("system@admin.com");
+        sysAdmin.setPassword("password");
+       // sysAdmin.setRole("SYSTEM_ADMINISTRATOR");
+        sysAdmin.setName("System Administrator");
+        agentService.saveAgent(sysAdmin);
     }
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
