@@ -5,7 +5,7 @@ function postCustomer(customer, callbackSuccess, callbackError) {
         headers: {
             "X-XSRF-TOKEN": getCookie("XSRF-TOKEN")
         },
-        url: serviceEndpointURL + "/api/customer",
+        url: serviceEndpointURL + "/api/customer", // DEFINE AFTER +
         data: customer,
         success: function (data) {
             callbackSuccess(data);

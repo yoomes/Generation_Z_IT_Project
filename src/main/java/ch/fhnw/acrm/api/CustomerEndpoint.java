@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api") // /api/Products --> not just products but the right one
 public class CustomerEndpoint {
     @Autowired
     private CustomerService customerService;
